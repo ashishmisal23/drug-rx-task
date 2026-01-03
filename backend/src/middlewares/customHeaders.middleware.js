@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 
 const customHeadersMiddleware = (req, res, next) => {
+  console.log('Custom Headers Middleware Invoked');
   if (req.method === 'OPTIONS') {
     return next();
   }

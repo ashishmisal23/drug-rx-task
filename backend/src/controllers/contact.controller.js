@@ -2,6 +2,8 @@ const Contact = require('../models/Contact.model');
 
 exports.createContact = async (req, res, next) => {
   try {
+    console.log('Request Headers:', req.headers);
+    console.log('Request Body:', req.body);
     const { name, email, phone, message } = req.body;
     const { source, requestId, ipAddress, userAgent } = req.meta;
 
