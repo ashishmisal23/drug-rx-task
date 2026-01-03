@@ -1,8 +1,14 @@
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 const customHeadersMiddleware = (req, res, next) => {
+  // ✅ Allow CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
   const source = req.headers['x-client-source'];
 
+  // ✅ Fail gracefully (400, not 500)
   if (!source) {
     return res.status(400).json({
       success: false,
@@ -12,9 +18,9 @@ const customHeadersMiddleware = (req, res, next) => {
 
   req.meta = {
     source,
-    requestId: uuidv4(),
-    ipAddress: req.ip,
-    userAgent: req.headers['user-agent'],
+    requestId: crypto.randomUUID(),
+    ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+    userAgent: req.headers['user-agent'] || 'unknown',
   };
 
   next();
