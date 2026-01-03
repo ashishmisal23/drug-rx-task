@@ -84,10 +84,12 @@ const ContactForm = () => {
     setErrors({});
 
     try {
+      const phone = (formData.phone || '').replace(/\s+/g, '');
+
       const payload = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phone || '',
+        phone,
         message: formData.message,
       };
 
