@@ -18,6 +18,6 @@ app.use(customHeadersMiddleware);
 app.get('/', (req, res, next) => {
   res.send('API is running...');
 });
-app.post('/api/contact', contactRoutes);
+app.use('/api/contact', contactRoutes);
 
 module.exports = app;
