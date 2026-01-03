@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
-import axios from 'axios';
 import { SERVER_URL } from "@/config/api-constants";
+import axios from "axios";
 
 const contactSchema = z.object({
   name: z
@@ -93,15 +93,10 @@ const ContactForm = () => {
 
       const response = await axios.post(
         SERVER_URL,
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        JSON.stringify(payload)
       );
 
-      if (response && response.status >= 200 && response.status < 300) {
+      if (response) {
 
         // ✅ Axios success (2xx only)
         setIsSubmitted(true);
