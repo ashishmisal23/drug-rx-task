@@ -91,7 +91,7 @@ const ContactForm = () => {
         message: formData.message,
       };
 
-      const response = await axios.post(SERVER_URL + "/api/contact", payload);
+      const response = await axios.post(SERVER_URL, payload);
 
       if (response && response.status >= 200 && response.status < 300) {
 
