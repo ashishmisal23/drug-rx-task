@@ -4,9 +4,6 @@ const connectDB = require('./src/config/db');
 
 const PORT = process.env.PORT || 5000;
 
-// ✅ Required for Vercel / Nginx / Load balancers
-app.set('trust proxy', true);
-
 const startServer = async () => {
   try {
     await connectDB();
@@ -17,7 +14,7 @@ const startServer = async () => {
     });
   } catch (error) {
     console.error('Failed to start server:', error);
-    process.exit(1); // ❌ Crash fast if DB fails
+    process.exit(1);
   }
 };
 
