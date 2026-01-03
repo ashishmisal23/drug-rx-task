@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@layer base {
+  :root {
+    /* Primary - Sophisticated Teal */
+    --primary: 173 58% 39%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 173 58% 50%;
+    
+    /* Secondary - Warm Coral */
+    --secondary: 12 76% 61%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Backgrounds */
+    --background: 40 33% 98%;
+    --foreground: 220 20% 14%;
+    
+    /* Cards & Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 14%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 14%;
+    
+    /* Muted */
+    --muted: 40 20% 94%;
+    --muted-foreground: 220 10% 46%;
+    
+    /* Accent */
+    --accent: 173 40% 95%;
+    --accent-foreground: 173 58% 30%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Border & Input */
+    --border: 220 13% 87%;
+    --input: 220 13% 87%;
+    --ring: 173 58% 39%;
+    
+    --radius: 0.75rem;
+    
+    /* Custom Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(173, 58%, 39%), hsl(173, 58%, 50%));
+    --gradient-hero: linear-gradient(180deg, hsl(40, 33%, 98%) 0%, hsl(173, 40%, 95%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(220, 20%, 14%), hsl(220, 20%, 20%));
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px -2px hsl(220 20% 14% / 0.08);
+    --shadow-md: 0 8px 24px -8px hsl(220 20% 14% / 0.12);
+    --shadow-lg: 0 16px 48px -16px hsl(220 20% 14% / 0.16);
+    --shadow-glow: 0 0 40px hsl(173 58% 50% / 0.2);
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 173 58% 39%;
+  }
+
+  .dark {
+    --primary: 173 58% 50%;
+    --primary-foreground: 220 20% 10%;
+    --primary-glow: 173 58% 60%;
+    
+    --secondary: 12 76% 65%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --background: 220 20% 10%;
+    --foreground: 40 20% 96%;
+    
+    --card: 220 20% 14%;
+    --card-foreground: 40 20% 96%;
+    
+    --popover: 220 20% 14%;
+    --popover-foreground: 40 20% 96%;
+    
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
+    
+    --accent: 173 30% 18%;
+    --accent-foreground: 173 58% 70%;
+    
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 173 58% 50%;
+    
+    --sidebar-background: 220 20% 10%;
+    --sidebar-foreground: 40 20% 96%;
+    --sidebar-primary: 173 58% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 40 20% 96%;
+    --sidebar-border: 220 15% 22%;
+    --sidebar-ring: 173 58% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .section-wrapper {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .card-elevated {
+    @apply bg-card rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300;
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-elevated:hover {
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from { 
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from { 
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
