@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import axios from 'axios';
 
 const contactSchema = z.object({
   name: z
@@ -82,25 +83,22 @@ const ContactForm = () => {
     setErrors({});
 
     try {
-      const response = await fetch("https://drug-rx-task-backend.vercel.app/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Client-Source": "react-spa",
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        "https://drug-rx-task-backend.vercel.app/api/contact",
+        {
           name: formData.name,
           email: formData.email,
           phone: formData.phone || undefined,
           message: formData.message,
-        }),
-      });
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData?.message || "Failed to send message");
-      }
-
+      // ✅ Axios success (2xx only)
       setIsSubmitted(true);
 
       toast({
@@ -108,7 +106,6 @@ const ContactForm = () => {
         description: "We'll get back to you as soon as possible.",
       });
 
-      // Reset form after delay
       setTimeout(() => {
         setFormData({
           name: "",
@@ -119,13 +116,13 @@ const ContactForm = () => {
         setIsSubmitted(false);
       }, 3000);
 
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Something went wrong",
         description:
-          error instanceof Error
-            ? error.message
-            : "Please try again later.",
+          error?.response?.data?.message ||
+          error.message ||
+          "Please try again later.",
         variant: "destructive",
       });
     } finally {
