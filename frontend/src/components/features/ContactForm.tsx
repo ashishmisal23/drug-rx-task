@@ -87,11 +87,19 @@ const ContactForm = () => {
       const payload = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phone || undefined,
+        phone: formData.phone || '',
         message: formData.message,
       };
 
-      const response = await axios.post(SERVER_URL, payload);
+      const response = await axios.post(
+        SERVER_URL,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response && response.status >= 200 && response.status < 300) {
 
