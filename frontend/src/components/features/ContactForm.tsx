@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import axios from 'axios';
+import { SERVER_URL } from "@/config/api-constants";
 
 const contactSchema = z.object({
   name: z
@@ -83,38 +84,35 @@ const ContactForm = () => {
     setErrors({});
 
     try {
-      const response = await axios.post(
-        "https://drug-rx-task-backend.vercel.app/api/contact",
-        {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || undefined,
-          message: formData.message,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        message: formData.message,
+      };
 
-      // ✅ Axios success (2xx only)
-      setIsSubmitted(true);
+      const response = await axios.post(SERVER_URL + "/api/contact", payload);
 
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you as soon as possible.",
-      });
+      if (response && response.status >= 200 && response.status < 300) {
 
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
+        // ✅ Axios success (2xx only)
+        setIsSubmitted(true);
+
+        toast({
+          title: "Message sent successfully!",
+          description: "We'll get back to you as soon as possible.",
         });
-        setIsSubmitted(false);
-      }, 3000);
+
+        setTimeout(() => {
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+          setIsSubmitted(false);
+        }, 3000);
+      }
 
     } catch (error: any) {
       toast({
